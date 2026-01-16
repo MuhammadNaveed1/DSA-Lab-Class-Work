@@ -15,6 +15,16 @@ public class Main {
     }
 }
 
+/*
+Output:
+Student Name: Muhammad Naveed
+Student Age: 22
+CGPA: 3.4
+Grade: B
+Pass Status: true
+*/
+
+
 // #Question 2
 public class Main {
     public static void main(String[] args) {
@@ -24,6 +34,12 @@ public class Main {
         System.out.println("Temperature in Fahrenheit: " + fahrenheitTemp);
     }
 }
+
+/*
+Output:
+Temperature in Fahrenheit: 86.0
+*/
+
 
 // #Question 3
 import java.util.Scanner;
@@ -42,6 +58,14 @@ public class Main {
     }
 }
 
+/*
+Output:
+Enter your name: Muhammad Naveed
+Enter your age: 22
+Hello Muhammad Naveed, you are 22 years old.
+*/
+
+
 // #Question 4
 import java.util.Scanner;
 
@@ -58,6 +82,22 @@ public class Main {
     }
 }
 
+/*
+Output (example if input = 5):
+Enter a number: 5
+5 x 1 = 5
+5 x 2 = 10
+5 x 3 = 15
+5 x 4 = 20
+5 x 5 = 25
+5 x 6 = 30
+5 x 7 = 35
+5 x 8 = 40
+5 x 9 = 45
+5 x 10 = 50
+*/
+
+
 // #Question 5
 public class Main {
     public static void main(String[] args) {
@@ -72,3 +112,8 @@ public class Main {
         System.out.println("Average Marks = " + average);
     }
 }
+
+/*
+Output:
+Average Marks = 84.0
+*/
