@@ -1,0 +1,41 @@
+// Palindrome Check using StackLinkedList
+
+public boolean isPalindrome() {
+    StackLinkedList copy = new StackLinkedList();
+    StackLinkedList temp = new StackLinkedList();
+
+    Node current = top;
+    while (current != null) {
+        copy.push(current.data);
+        temp.push(current.data);
+        current = current.next;
+    }
+
+    StackLinkedList reversed = temp.reverseStack();
+
+    while (!copy.isEmpty() && !reversed.isEmpty()) {
+        if (copy.pop() != reversed.pop()) return false;
+    }
+    return true;
+}
+
+/*
+Stack: [2, 4, 6, 4, 2]
+Output → Palindrome = true
+*/
+
+
+// StackLinkedList Reverse Function
+
+public StackLinkedList reverseStack() {
+    StackLinkedList temp = new StackLinkedList();
+    while (!isEmpty()) {
+        temp.push(pop());
+    }
+    return temp;
+}
+
+/*
+Stack: [15, 25, 35]
+Reversed → [35, 25, 15]
+*/
