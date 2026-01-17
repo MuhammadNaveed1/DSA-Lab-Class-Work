@@ -1,0 +1,143 @@
+// #Dynamic Array and Basic Array Operations
+
+import java.util.Scanner;
+
+// Dynamic Array class
+class DynamicArray {
+    private int[] items;
+    private int count;
+
+    public DynamicArray(int length) {
+        items = new int[length];
+    }
+
+    public void insert(int value) {
+        // Resize if full
+        if (count == items.length) {
+            int[] newItems = new int[count * 2];
+            for (int i = 0; i < count; i++)
+                newItems[i] = items[i];
+            items = newItems;
+            System.out.println("Array resized to " + items.length);
+        }
+        items[count++] = value;
+    }
+
+    public void print() {
+        for (int i = 0; i < count; i++)
+            System.out.print(items[i] + " ");
+        System.out.println();
+    }
+}
+
+// Simple Array with fixed size
+class MyArray {
+    private int[] items;
+    private int count;
+
+    public MyArray(int length) {
+        items = new int[length];
+    }
+
+    public void insert(int value) {
+        if (count == items.length) {
+            System.out.println("Array is full! Cannot insert " + value);
+            return;
+        }
+        items[count++] = value;
+    }
+
+    public void print() {
+        for (int i = 0; i < count; i++)
+            System.out.print(items[i] + " ");
+        System.out.println();
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+
+        // Using MyArray
+        MyArray fixedArr = new MyArray(4);
+        fixedArr.insert(5);
+        fixedArr.insert(15);
+        fixedArr.insert(25);
+        fixedArr.insert(35);
+        fixedArr.insert(45); // cannot insert
+        fixedArr.print();
+
+        // Using DynamicArray
+        DynamicArray dynArr = new DynamicArray(3);
+        dynArr.insert(5);
+        dynArr.insert(15);
+        dynArr.insert(25);
+        dynArr.insert(35); // triggers resize
+        dynArr.insert(45);
+        dynArr.print();
+
+        // 2D array printing
+        int[][] matrix = {
+                {2, 4, 6},
+                {8, 10, 12},
+                {14, 16, 18}
+        };
+        System.out.println("Matrix:");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++)
+                System.out.print(matrix[i][j] + " ");
+            System.out.println();
+        }
+
+        // User input array
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter size of array: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter element " + (i + 1) + ": ");
+            arr[i] = sc.nextInt();
+        }
+
+        // sum, max, average
+        int sum = 0, max = arr[0], index = 0;
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+            if (arr[i] > max) {
+                max = arr[i];
+                index = i;
+            }
+        }
+
+        double avg = (double) sum / n;
+        System.out.println("Sum = " + sum);
+        System.out.println("Average = " + avg);
+        System.out.println("Max = " + max + " at index " + index);
+        System.out.println("Time Complexity: O(n)");
+        System.out.println("Space Complexity: O(n)");
+    }
+}
+
+/* 
+Sample Output:
+
+Array is full! Cannot insert 45
+5 15 25 35
+Array resized to 6
+5 15 25 35 45
+Matrix:
+2 4 6
+8 10 12
+14 16 18
+Enter size of array: 4
+Enter element 1: 7
+Enter element 2: 3
+Enter element 3: 9
+Enter element 4: 5
+Sum = 24
+Average = 6.0
+Max = 9 at index 2
+Time Complexity: O(n)
+Space Complexity: O(n)
+*/
