@@ -1,0 +1,151 @@
+// Week-14 BINARY SEARCH TREE (RECURSIVE DELETE AND UTILITY)
+import java.util.*;
+
+// Node class for BST
+class Node {
+    int value;
+    Node left, right;
+
+    Node(int value) {
+        this.value = value;
+        left = right = null;
+    }
+}
+
+// BST class
+class BST {
+    Node root;
+
+    // insert node
+    public void insert(int value) {
+        root = insertRec(root, value);
+    }
+
+    private Node insertRec(Node root, int value) {
+        if (root == null) return new Node(value);
+
+        if (value < root.value) root.left = insertRec(root.left, value);
+        else root.right = insertRec(root.right, value);
+
+        return root;
+    }
+
+    // delete node
+    public void delete(int value) {
+        root = deleteRec(root, value);
+    }
+
+    private Node deleteRec(Node root, int value) {
+        if (root == null) return null;
+
+        if (value < root.value) root.left = deleteRec(root.left, value);
+        else if (value > root.value) root.right = deleteRec(root.right, value);
+        else {
+            // CASE 1: no child
+            if (root.left == null && root.right == null) return null;
+
+            // CASE 2: one child
+            if (root.left == null) return root.right;
+            if (root.right == null) return root.left;
+
+            // CASE 3: two children
+            int successorValue = findMin(root.right);
+            root.value = successorValue;
+            root.right = deleteRec(root.right, successorValue);
+        }
+        return root;
+    }
+
+    // find minimum value in BST
+    private int findMin(Node root) {
+        while (root.left != null) root = root.left;
+        return root.value;
+    }
+
+    // count total nodes
+    public int countNodes() {
+        return countNodesRec(root);
+    }
+
+    private int countNodesRec(Node node) {
+        if (node == null) return 0;
+        return 1 + countNodesRec(node.left) + countNodesRec(node.right);
+    }
+
+    // count leaf nodes
+    public int countLeafNodes() {
+        return countLeafNodesRec(root);
+    }
+
+    private int countLeafNodesRec(Node node) {
+        if (node == null) return 0;
+        if (node.left == null && node.right == null) return 1;
+        return countLeafNodesRec(node.left) + countLeafNodesRec(node.right);
+    }
+
+    // check valid BST
+    public boolean isValidBST() {
+        return isValidBSTRec(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private boolean isValidBSTRec(Node node, int min, int max) {
+        if (node == null) return true;
+        if (node.value < min || node.value > max) return false;
+        return isValidBSTRec(node.left, min, node.value - 1) &&
+               isValidBSTRec(node.right, node.value + 1, max);
+    }
+
+    // level order traversal
+    public void levelOrderTraversal() {
+        if (root == null) return;
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            Node temp = q.poll();
+            System.out.print(temp.value + " ");
+            if (temp.left != null) q.add(temp.left);
+            if (temp.right != null) q.add(temp.right);
+        }
+        System.out.println();
+    }
+}
+
+
+// MAIN
+public class Main {
+    public static void main(String[] args) {
+        BST tree = new BST();
+
+        // inserting updated values
+        tree.insert(45);
+        tree.insert(25);
+        tree.insert(65);
+        tree.insert(15);
+        tree.insert(35);
+        tree.insert(55);
+        tree.insert(75);
+
+        System.out.println("Total Nodes: " + tree.countNodes());
+        System.out.println("Leaf Nodes: " + tree.countLeafNodes());
+        System.out.println("Valid BST: " + tree.isValidBST());
+
+        System.out.println("Level Order Traversal:");
+        tree.levelOrderTraversal();
+
+        tree.delete(45);
+        System.out.println("After Deleting 45:");
+        tree.levelOrderTraversal();
+    }
+}
+
+/*
+Output:
+Total Nodes: 7
+Leaf Nodes: 4
+Valid BST: true
+Level Order Traversal:
+45 25 65 15 35 55 75
+After Deleting 45:
+55 25 65 15 35 75
+*/
